@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-var index = require('./routes/index');
+var posts = require('./routes/posts');
 var users = require('./routes/users');
 
 var app = express();
@@ -28,7 +28,7 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')))
 
-app.use('/posts', index);
+app.use('/api/posts', posts);
 app.use('/users', users);
 
 app.use('*', function(req, res, next) {
