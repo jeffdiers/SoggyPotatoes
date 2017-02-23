@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
       posts.forEach(post => {
         post.comments = commentsByPostId[post.id] || []
       })
-      res.json(posts)
+      res.send(posts)
     })
   })
   .catch(err => next(err))
@@ -27,7 +27,7 @@ router.get('/:id', (req, res, next) => {
   knex('posts')
     .where({id: req.params.id})
     .first()
-    .then(post => res.json(post))
+    .then(post => res.send(post))
     .catch(err => next(err))
 })
 
