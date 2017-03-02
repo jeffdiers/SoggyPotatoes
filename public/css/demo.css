@@ -5,6 +5,10 @@
   font-size: 52px;
 }
 
+.title-link {
+  color: black;
+}
+
 @media (max-width: 1200px) {
   .media-object {
   width: 75vw;
@@ -342,6 +346,14 @@
     position:fixed;
     width:100%;
     height:540px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center center;
+}
+.article-container > .img-src{
+    position:fixed;
+    width:100%;
+    height:100px;;
     background-repeat:no-repeat;
     background-size:cover;
     background-position: center center;

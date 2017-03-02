@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'node_modules')))
 app.use(cors())
 
-app.use('/soggy', index);
+app.use('/', index);
 app.use('/api/posts', posts);
 app.use('/users', users);
 

@@ -27,4 +27,12 @@ router.get('/posts', (req, res, next) => {
   .catch(err => next(err))
 })
 
+router.get('/:id', (req, res, next) => {
+  knex('posts')
+    .where({id: req.params.id})
+    .first()
+    .then(post => res.send(post))
+    .catch(err => next(err))
+})
+
 module.exports = router;
