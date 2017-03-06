@@ -68,7 +68,7 @@ angular.module('soggy', ['ui.router', 'angularMoment', 'ngSanitize'])
     }
     function getMovieData(movie_title){
       let title = encodeURIComponent(movie_title)
-      return $http.get('http://www.omdbapi.com/?t='+title)
+      return $http.get('https://www.omdbapi.com/?t='+title)
     }
     o.getMovieData = getMovieData
     o.getAll = getAll
