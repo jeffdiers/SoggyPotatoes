@@ -3,7 +3,9 @@ angular.module('soggy', ['ui.router', 'angularMoment', 'ngSanitize'])
   '$stateProvider',
   '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider){
+
     $stateProvider
+
     .state('home', {
       url: '/home',
       templateUrl: '/js/home-template.html',
@@ -14,15 +16,19 @@ angular.module('soggy', ['ui.router', 'angularMoment', 'ngSanitize'])
         }]
       }
     })
+
     .state('posts', {
-      url: '/posts/{id}',
+      url: '/posts/{movie_title}',
       templateUrl: '/js/article-template.html',
       controller: 'PostsCtrl',
       resolve: {
         post: ['$stateParams', 'postService', function($stateParams, postService){
-          return postService.get($stateParams.id)
-        }]
-      }
+          return postService.get($stateParams.movie_title)
+        }],
+        movieData: ['$stateParams', 'postService', function($stateParams, postService){
+            return postService.getMovieData($stateParams.movie_title)
+          }]
+        }
     })
     $urlRouterProvider.otherwise('/home');
   }])
@@ -39,8 +45,11 @@ angular.module('soggy', ['ui.router', 'angularMoment', 'ngSanitize'])
     '$scope',
     'postService',
     'post',
-    function($scope, postService, post){
+    'movieData',
+    function($scope, postService, post, movieData){
       $scope.post = post[0]
+      $scope.movieData = movieData.data
+      console.log(movieData.data);
     }
   ])
 
@@ -52,11 +61,16 @@ angular.module('soggy', ['ui.router', 'angularMoment', 'ngSanitize'])
         angular.copy(data, o.posts)
       })
     }
-    function get(id){
-      return $http.get('/api/posts/'+id).then(function (res){
+    function get(movie_title){
+      return $http.get('/api/posts/'+movie_title).then(function (res){
         return res.data
       })
     }
+    function getMovieData(movie_title){
+      let title = encodeURIComponent(movie_title)
+      return $http.get('http://www.omdbapi.com/?t='+title)
+    }
+    o.getMovieData = getMovieData
     o.getAll = getAll
     o.get = get
     return o

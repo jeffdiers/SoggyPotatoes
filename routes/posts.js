@@ -23,14 +23,9 @@ router.get('/', (req, res, next) => {
   .catch(err => next(err))
 })
 
-router.get('/:id', (req, res, next) => {
-  // knex('posts')
-  //   .where({id: req.params.id})
-  //   .first()
-  //   .then(post => res.send(post))
-  //   .catch(err => next(err))
+router.get('/:movie_title', (req, res, next) => {
   knex('posts')
-  .where({id: req.params.id})
+  .where({movie_title: req.params.movie_title})
   .then(posts => {
     return knex('comments')
     .whereIn('post_id', posts.map(p => p.id))
@@ -48,5 +43,13 @@ router.get('/:id', (req, res, next) => {
   })
   .catch(err => next(err))
 })
+
+// router.get('/:id', (req, res, next) => {
+//   knex('posts')
+//     .where({id: req.params.id})
+//     .first()
+//     .then(post => res.send(post))
+//     .catch(err => next(err))
+// })
 
 module.exports = router;
