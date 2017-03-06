@@ -53,25 +53,21 @@ angular.module('soggy', ['ui.router', 'angularMoment', 'ngSanitize'])
     }
   ])
 
-
   .factory('postService', ['$http', function($http, angularMoment){
     let o = { posts: [] }
-    function getAll(){
+    o.getAll = function(){
       return $http.get('/api/posts').success(function (data){
         angular.copy(data, o.posts)
       })
     }
-    function get(movie_title){
+    o.get = function(movie_title){
       return $http.get('/api/posts/'+movie_title).then(function (res){
         return res.data
       })
     }
-    function getMovieData(movie_title){
+    o.getMovieData = function(movie_title){
       let title = encodeURIComponent(movie_title)
       return $http.get('https://www.omdbapi.com/?t='+title)
     }
-    o.getMovieData = getMovieData
-    o.getAll = getAll
-    o.get = get
     return o
   }])
