@@ -25,6 +25,10 @@
   font-weight: 300;
 }
 
+.article {
+  height: 200px;
+}
+
 .tim-container{
     background: #ffffff;
 

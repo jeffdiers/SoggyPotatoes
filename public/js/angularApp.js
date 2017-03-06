@@ -1,4 +1,4 @@
-angular.module('soggy', ['ui.router', 'angularMoment'])
+angular.module('soggy', ['ui.router', 'angularMoment', 'ngSanitize'])
 .config([
   '$stateProvider',
   '$urlRouterProvider',
@@ -6,7 +6,7 @@ angular.module('soggy', ['ui.router', 'angularMoment'])
     $stateProvider
     .state('home', {
       url: '/home',
-      templateUrl: '/home.html',
+      templateUrl: '/js/home-template.html',
       controller: 'MainCtrl',
       resolve: {
         postPromise: ['postService', function(postService){
@@ -16,7 +16,7 @@ angular.module('soggy', ['ui.router', 'angularMoment'])
     })
     .state('posts', {
       url: '/posts/{id}',
-      templateUrl: '/posts.html',
+      templateUrl: '/js/article-template.html',
       controller: 'PostsCtrl',
       resolve: {
         post: ['$stateParams', 'postService', function($stateParams, postService){
@@ -40,9 +40,10 @@ angular.module('soggy', ['ui.router', 'angularMoment'])
     'postService',
     'post',
     function($scope, postService, post){
-      $scope.post = post
+      $scope.post = post[0]
     }
   ])
+
 
   .factory('postService', ['$http', function($http, angularMoment){
     let o = { posts: [] }

@@ -2,6 +2,7 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable('posts', table => {
     table.increments()
     table.string("title").notNullable()
+    table.string("article", 200000).notNullable()
     table.text("body").notNullable()
     table.string("author").notNullable()
     table.string("image_url").notNullable()
